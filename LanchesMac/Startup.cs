@@ -1,4 +1,5 @@
 ﻿using LanchesMac.Context;
+using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +22,8 @@ public class Startup
 
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
-
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
         services.AddControllersWithViews();
 
@@ -54,6 +55,11 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllerRoute(
+                name: "categoriaFiltro",
+                pattern: "Lanche/{action}/{categoria?}",
+                defaults: new { Controller = "Lanche", Action = "List" });
+
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
