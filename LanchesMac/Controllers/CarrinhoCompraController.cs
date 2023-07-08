@@ -36,7 +36,7 @@ namespace LanchesMac.Controllers
             var lancheSelecionado = _lancheRepository.Lanches
                                     .FirstOrDefault(p => p.LancheId == lancheId);
 
-            if(lancheSelecionado == null)
+            if(lancheSelecionado != null)
             {
                 _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
             }
@@ -48,7 +48,7 @@ namespace LanchesMac.Controllers
             var lancheSelecionado = _lancheRepository.Lanches
                         .FirstOrDefault(p => p.LancheId == lancheId);
 
-            if (lancheSelecionado == null)
+            if (lancheSelecionado != null)
             {
                 _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
             }
